@@ -1,0 +1,10 @@
+<% api = GitHubV3API.new session[:access_token] %>
+<% repositories = [] %>
+<% orgs = api.orgs.list %>
+<% orgs.each do |org| %>
+  <% org.repos.each do |repo| %>
+    <% repositories << repo %>
+  <% end %>
+<% end %>
+<%= select(:project, :github_repository, repositories.collect {|repo| [ repo.name, repo.html_url ] }, {:include_blank => 'Select a repository'}) %>
+
