@@ -7,17 +7,17 @@ require "github_widgets/version"
 Gem::Specification.new do |s|
   s.name        = "github_widgets"
   s.version     = GithubWidgets::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of GithubWidgets."
-  s.description = "TODO: Description of GithubWidgets."
+  s.authors     = ["Yovoslav Ivnaov"]
+  s.email       = ["yovoslav.ivanov@gmail.com"]
+  s.homepage    = "https://github.com/ji/github_widgets"
+  s.summary     = "Rails github API widgets."
+  s.description = "A full engine for ruby on rails, which contains widgets for accessing github API data."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 3.2.1"
-  # s.add_dependency "jquery-rails"
+  s.add_dependency "jquery-rails"
 
   s.add_development_dependency "sqlite3"
 end
