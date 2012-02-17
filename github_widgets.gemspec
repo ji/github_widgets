@@ -7,7 +7,7 @@ require "github_widgets/version"
 Gem::Specification.new do |s|
   s.name        = "github_widgets"
   s.version     = GithubWidgets::VERSION
-  s.authors     = ["Yovoslav Ivnaov"]
+  s.authors     = ["Yovoslav Ivanov"]
   s.email       = ["yovoslav.ivanov@gmail.com"]
   s.homepage    = "https://github.com/ji/github_widgets"
   s.summary     = "Rails github API widgets."
