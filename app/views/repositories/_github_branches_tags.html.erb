@@ -1,6 +1,6 @@
 <% api = GitHubV3API.new session[:access_token] %>
 
-<% ## key - organization's login, value - organization's repositories %>
+<% ## key - organization's/user's login, value - organization's/user's repositories %>
 <% repositories_hash = Hash.new(0) %>
 
 <% ## 1. user's organizations repositories %>
@@ -14,8 +14,12 @@
 <% end %>
 
 <% ## 2. user's repositories %>
-<% user_login = api.users.current.login %>
-<% repositories_hash[user_login] = api.repos.list %>
+<% user_repositories = api.repos.list %>
+<% user_repositories.each do |repository| %> 
+  <% repository_owner = repository.owner["login"] %>
+  <% repository_array = [repository] %>
+  <% repositories_hash[repository_owner] = repository_array %>
+<% end %>
 
 <% branches = [] %>
 <% tags = [] %>
