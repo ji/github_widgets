@@ -1,37 +1,29 @@
 <% api = GitHubV3API.new session[:access_token] %>
-
-<% ## key - organization's/user's login, value - organization's/user's repositories %>
-<% repositories_hash = Hash.new(0) %>
-
+<% repositories = [] %>
+  
 <% ## 1. user's organizations repositories %>
 <% orgs = api.orgs.list %>
 <% orgs.each do |org| %>
-  <% repositories = [] %>
   <% org.repos.each do |repository| %>
     <% repositories << repository %>
   <% end %>
-  <% repositories_hash[org.login] = repositories %>
 <% end %>
 
 <% ## 2. user's repositories %>
-<% user_repositories = api.repos.list %>
-<% user_repositories.each do |repository| %> 
-  <% repository_owner = repository.owner["login"] %>
-  <% repository_array = [repository] %>
-  <% repositories_hash[repository_owner] = repository_array %>
+<% user_repos = api.repos.list %>
+<% user_repos.each do |repository| %>
+  <% repositories << repository %>
 <% end %>
 
 <% branches = [] %>
 <% tags = [] %>
-<% repositories_hash.each do |key, value| %>
-  <% value.each do |repository| %>
-    <% if repository.html_url == project.github_repository %>
-      <% branches = api.repos.list_branches key, repository.name %>
-      <% tags = api.repos.list_tags key, repository.name %>
-    <% end %>
+<% repositories.each do |repository| %>
+  <% if repository.html_url == project.github_repository %>
+    <% branches = repository.list_branches %>
+    <% tags = repository.list_tags %>
   <% end %>
 <% end %>
-      
+     
 <div id="branches_tags">
   <ul>
     <li>
