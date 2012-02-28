@@ -1,10 +1,19 @@
 <% api = GitHubV3API.new session[:access_token] %>
 <% repositories = [] %>
+  
+<% ## 1. user's organizations repositories %>
 <% orgs = api.orgs.list %>
 <% orgs.each do |org| %>
-  <% org.repos.each do |repo| %>
-    <% repositories << repo %>
+  <% org.repos.each do |repository| %>
+    <% repositories << repository %>
   <% end %>
 <% end %>
+
+<% ## 2. user's repositories %>
+<% user_repos = api.repos.list %>
+<% user_repos.each do |repository| %>
+  <% repositories << repository %>
+<% end %>
+
 <%= select(:project, :github_repository, repositories.collect {|repo| [ repo.name, repo.html_url ] }, {:include_blank => 'Select a repository'}) %>
 
