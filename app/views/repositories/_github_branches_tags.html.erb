@@ -1,6 +1,6 @@
 <% api = GitHubV3API.new session[:access_token] %>
 <% repositories = [] %>
-  
+
 <% ## 1. user's organizations repositories %>
 <% orgs = api.orgs.list %>
 <% orgs.each do |org| %>
@@ -23,32 +23,35 @@
     <% tags = repository.list_tags %>
   <% end %>
 <% end %>
-     
-<div id="branches_tags">
-  <ul>
-    <li>
-      <a href="#branches">Branches</a>
-    </li>
-    <li>
-      <a href="#tags">Tags</a>
-    </li>
-  </ul>
-  <div id="branches">
-    <ul>
-    <% branches.each do |branch| %>
-      <li>
-        <a href="<%= branch.name %>"><%= branch.name %></a>
-      </li>
-    <% end %>
-    </ul>
-  </div>
-  <div id="tags">
-    <ul>
-    <% tags.each do |tag| %>
-      <li>
-        <a href="<%= tag.name %>"><%= tag.name %></a>
-      </li>
-    <% end %>
-    </ul>
+
+<div class="modal non_closable" id="branches_tags_modal">
+  <div class="modal-body non_closable">
+    <div id="branches_tags" class="non_closable">
+      <ul id="tab" class="nav nav-tabs non_closable">
+        <li class="active non_closable"><a href="#branches" class="non_closable" data-toggle="tab">Branches</a></li>
+        <li class=""><a href="#tags" class="non_closable" data-toggle="tab">Tags</a></li>
+      </ul>
+      <div class="tab-content non_closable">
+        <div class="tab-pane active non_closable" id="branches">
+          <ul>
+            <% branches.each do |branch| %>
+              <li>
+              <a href="<%= branch.name %>"><%= branch.name %></a>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+        <div class="tab-pane non_closable" id="tags">
+          <ul>
+            <% tags.each do |tag| %>
+              <li>
+              <a href="<%= tag.name %>"><%= tag.name %></a>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
